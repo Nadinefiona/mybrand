@@ -5,6 +5,8 @@ const jwt = require('jsonwebtoken');
 // const bcrypt = require('bcryptjs');
 
 
+
+
 //validation
 const Joi = require('@hapi/joi');
 const bcrypt = require('bcryptjs/dist/bcrypt');
@@ -63,14 +65,14 @@ router.post('/register', async (req,res) => {
 
 
 
-//Get  all users
+//GET ALL  USERS
 
 router.get('/register', async (req,res) =>{
         try{
        const user = await User.find()
        res.send(user);
     }catch(err){
-        res.status(400).send(err);
+        res.status.send(err);
     }
 });
 
