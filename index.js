@@ -34,6 +34,7 @@ app.get("/user",() => {
 
 
 /**
+
  * @swagger 
  * /api/user/register:
  *   get:
@@ -56,16 +57,20 @@ app.get("/user",() => {
 
 /**
  * @swagger
- * /api/user/register{:userId}:
+ * /api/user/register/{:userId}:
  *   get:
  *     summary: Get user by id
  *     description: GET a user by Id
+ *     produces:
+ *      - application/json
+ *     consumes:
+ *     - application/json
  *     parameters:
  *      - name: userId
  *        in: path
  *        required: true
  *        schema: 
- *          type: integer
+ *          type: string
  *     responses:
  *       '200':
  *          description: A successful response
@@ -96,23 +101,39 @@ app.get("/user",() => {
  *     description: add post
  *     produces:
  *      - application/json
+ *     consumes:
+ *     - application/json
  *     parameters:
  *      - in: body
+ *        name: post
  *        required: true
  *        schema: 
- *          type: integer
+ *          type: object
+ *          properties:
+ *            title: 
+ *               type: string
+ *            description:
+ *               type: string                                                                                    
  *     responses:
  *       '200':
  *          description: A successful response
- *          schema:
- *            type: object
- *            properties:
- *              id:
- *                type: object
- *              name:
- *                type: string
  */
 
+/**
+ *    /upload:
+ *      post:
+ *    consumes:
+ *      - multipart/formData
+ *    parameters:
+ *      - in: formData
+ *        name: file
+ *        type: file
+ *        required: true
+ *        description: file Upload  
+ *    responses:
+ *       '200':
+ *          description: A successful response  
+ */
 
 /**
  * @swagger
