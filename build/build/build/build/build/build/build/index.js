@@ -1,38 +1,44 @@
 const express = require('express');
+
 const app = express();
+
 const YAML = require('yamljs');
+
 const dotenv = require('dotenv');
+
 const mongoose = require('mongoose');
+
 const swaggerJsDoc = require('swagger-jsdoc');
+
 const swaggerUi = require('swagger-ui-express');
+
 app.use(express.json());
-require('dotenv').config({ path: 'ENV_FILENAME' });
 
-
-
-const swaggerOptions = {
-   definition:{
-       openapi:'3.0.0',
-       info:{
-           title:'User API',
-           description:'User  API  information',
-           contact: {
-               name: 'web developer'
-           },
-          servers:["http://localhost:300"]
-       }
-   },
-   apis: ["index.js"]
-};
-
-const swaggerDos =  swaggerJsDoc(swaggerOptions);
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDos));
-
-app.get("/user",() => {
-   res.status.send("user results");
+require('dotenv').config({
+  path: 'ENV_FILENAME'
 });
 
+const swaggerOptions = {
+  definition: {
+    openapi: '3.0.0',
+    info: {
+      title: 'User API',
+      description: 'User  API  information',
+      contact: {
+        name: 'web developer'
+      },
+      servers: ["http://localhost:300"]
+    }
+  },
+  apis: ["index.js"]
+};
+const swaggerDos = swaggerJsDoc(swaggerOptions);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDos));
+app.get("/user", () => {
+  res.status.send("user results");
+});
 /**
+
  * @swagger 
  * /api/user/register:
  *   get:
@@ -143,7 +149,6 @@ app.get("/user",() => {
  *          description: A successful response
  */
 
-
 /**
  * @swagger
  * /api/posts{:postId}:
@@ -153,6 +158,7 @@ app.get("/user",() => {
  *       '200':
  *          description: A successful response
  */
+
 /**
  * @swagger
  * /api/posts{:postId}:
@@ -162,45 +168,29 @@ app.get("/user",() => {
  *       '200':
  *          description: A successful response
  */
-
-
 // Import Routes
+
 const authRoute = require('./routes/auth');
+
 const postRoute = require('./routes/posts');
-const res = require('express/lib/response');
-// const router = require('./routes/auth');
 
-dotenv.config();
+const res = require('express/lib/response'); // const router = require('./routes/auth');
 
 
+dotenv.config(); //Connect to DB
 
-//Connect to DB
-
-
-mongoose.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.6zhup.mongodb.net/database?retryWrites=true&w=majority`,() =>{
-  console.log('connected to db!')
-});
-
-
-
-// mongoose.connect(
+mongoose.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.6zhup.mongodb.net/database?retryWrites=true&w=majority`, () => {
+  console.log('connected to db!');
+}); // mongoose.connect(
 // `${process.env.DB_CONNECT}`
 // ,() =>{
 //   console.log('connected to db!')
 // });
-
-
-
-
 //Middlewares
-app.use(express.json());
 
+app.use(express.json()); //Route Middlewares
 
-//Route Middlewares
 app.use('/api/user', authRoute);
 app.use('/api/posts', postRoute);
-
 app.listen(300, () => console.log('Server Up and running'));
-
-
 module.exports = app;

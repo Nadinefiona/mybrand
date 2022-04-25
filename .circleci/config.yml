@@ -8,11 +8,10 @@ jobs:
       - image: circleci/mongo:4.2
         environment:
           - DB_CONNECTION_STRING: "mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.6zhup.mongodb.net/database?retryWrites=true&w=majority"
-    working_directory: ~/project
-    before_script: chmod 0777 ./node_modules/.bin/mocha 
+    # working_directory: ~/project
+    # before_script: chmod 0777 ./node_modules/.bin/mocha 
     steps:
-      - checkout:
-          path: ~/project
+      - checkout
       - run: npm install
       - run: npm test
       - run: npm test_coverage
