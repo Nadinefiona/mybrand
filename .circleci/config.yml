@@ -14,7 +14,7 @@ jobs:
       - checkout
       - run: npm install
       - run: npm test
-      - run: npm test_coverage
+      - run: npm test_covarage
 
 workflows:
   version: 2
