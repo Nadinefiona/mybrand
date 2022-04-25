@@ -12,15 +12,16 @@ require('dotenv').config({ path: 'ENV_FILENAME' });
 
 const swaggerOptions = {
    definition:{
-       openapi:'3.0.0',
        info:{
-           title:'User API',
-           description:'User  API  information',
+           title:'Portfolio API',
+           version: '1.0.0',
+           description:'Portfolio API  information',
            contact: {
-               name: 'web developer'
+               email: 'nadinefiona9@gmail.com'
            },
-          servers:["http://localhost:300"]
-       }
+        servers:["http://localhost:300"]
+       },
+       schemes: ["http"]
    },
    apis: ["index.js"]
 };
@@ -36,6 +37,9 @@ app.get("/user",() => {
  * @swagger 
  * /api/user/register:
  *   get:
+ *     tags: 
+ *       - User
+ *     name: users
  *     summary: Get all  users
  *     description: Use to request all users
  *     responses:
@@ -47,6 +51,9 @@ app.get("/user",() => {
  * @swagger
  * /api/user/register:
  *   post:
+ *     tags:
+ *       - User
+ *     name: users
  *     description: add new user
  *     responses:
  *       '200':
@@ -57,6 +64,9 @@ app.get("/user",() => {
  * @swagger
  * /api/user/register/{:userId}:
  *   get:
+ *     tags:
+ *         - User
+ *     name: users
  *     summary: Get user by id
  *     description: GET a user by Id
  *     produces:
@@ -85,6 +95,9 @@ app.get("/user",() => {
  * @swagger
  * /api/user/login:
  *   post:
+ *     tags:
+ *        - User
+ *     name: users
  *     description: login
  *     responses:
  *       '200':
@@ -95,6 +108,9 @@ app.get("/user",() => {
  * @swagger
  * /api/posts:
  *   post:
+ *     tags: 
+ *        - Post
+ *     name: posts
  *     summary: add post
  *     description: add post
  *     produces:
@@ -137,6 +153,9 @@ app.get("/user",() => {
  * @swagger
  * /api/posts:
  *   get:
+ *     tags:
+ *       - Post
+ *     name: posts
  *     description: get all posts
  *     responses:
  *       '200':
@@ -147,7 +166,10 @@ app.get("/user",() => {
 /**
  * @swagger
  * /api/posts{:postId}:
- *   post:
+ *   get:
+ *     tags: 
+ *       - Post
+ *     name: posts
  *     description: update  a post
  *     responses:
  *       '200':
@@ -157,12 +179,136 @@ app.get("/user",() => {
  * @swagger
  * /api/posts{:postId}:
  *   delete:
+ *     tags:
+ *       - Post
+ *     name: posts
  *     description: delete post
  *     responses:
  *       '200':
  *          description: A successful response
  */
 
+/**
+ * @swagger
+ * /api/posts{:postId}:
+ *   patch:
+ *     tags:
+ *       - Post
+ *     name: posts
+ *     description: delete post
+ *     responses:
+ *       '200':
+ *          description: A successful response
+ */
+/**
+ * @swagger
+ * /api/posts{Id}:
+ *   delete:
+ *     tags: 
+ *       - Comment
+ *     name: comment
+ *     description: update  a post
+ *     responses:
+ *       '200':
+ *          description: A successful response
+ */
+
+/**
+ * @swagger
+ * /api/posts{Id}:
+ *   get:
+ *     tags: 
+ *       - Comment
+ *     name: comment
+ *     description: update  a post
+ *     responses:
+ *       '200':
+ *          description: A successful response
+ */
+
+
+
+/**
+ * @swagger
+ * /api/posts:
+ *   put:
+ *     tags: 
+ *       - Comment
+ *     name: comment
+ *     description: update  a post
+ *     responses:
+ *       '200':
+ *          description: A successful response
+ */
+
+
+/**
+ * @swagger
+ * /api/posts{:postId}:
+ *   put:
+ *     tags: 
+ *       - Articles
+ *     name: articles
+ *     description: update  a post
+ *     responses:
+ *       '200':
+ *          description: A successful response
+ */
+
+
+/**
+ * @swagger
+ * /api/posts{:id}:
+ *   get:
+ *     tags: 
+ *       - Articles
+ *     name: articles
+ *     description: update  a post
+ *     responses:
+ *       '200':
+ *          description: A successful response
+ */
+/**
+ * @swagger
+ * /api/posts{:id}:
+ *   delete:
+ *     tags: 
+ *       - Articles
+ *     name: articles
+ *     description: update  a post
+ *     responses:
+ *       '200':
+ *          description: A successful response
+ */
+
+
+/**
+ * @swagger
+ * /api/posts{:Id}:
+ *   post:
+ *     tags: 
+ *       - Message
+ *     name: message
+ *     description: update  a post
+ *     responses:
+ *       '200':
+ *          description: A successful response
+ */
+
+
+
+/**
+ * @swagger
+ * /api/posts:
+ *   delete:
+ *     tags: 
+ *       - Message
+ *     name: message
+ *     description: update  a post
+ *     responses:
+ *       '200':
+ *          description: A successful response
+ */
 
 // Import Routes
 const authRoute = require('./routes/auth');
