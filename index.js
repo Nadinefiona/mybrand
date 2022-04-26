@@ -47,18 +47,39 @@ app.get("/user",() => {
  *          description: A successful response
  */
 
+
 /**
  * @swagger
  * /api/user/register:
  *   post:
- *     tags:
- *       - User
+ *     tags: 
+ *        - User
  *     name: users
+ *     summary: add user
  *     description: add new user
+ *     produces:
+ *      - application/json
+ *     consumes:
+ *     - application/json
+ *     parameters:
+ *      - in: body
+ *        name: post
+ *        required: true
+ *        schema: 
+ *          type: object
+ *          properties:
+ *            name: 
+ *               type: string
+ *            email:
+ *               type: string
+ *            password:
+ *               type: string                                                                                    
  *     responses:
  *       '200':
  *          description: A successful response
  */
+
+
 
 /**
  * @swagger
@@ -95,14 +116,33 @@ app.get("/user",() => {
  * @swagger
  * /api/user/login:
  *   post:
- *     tags:
+ *     tags: 
  *        - User
  *     name: users
+ *     summary: login
  *     description: login
+ *     produces:
+ *      - application/json
+ *     consumes:
+ *     - application/json
+ *     parameters:
+ *      - in: body
+ *        name: post
+ *        required: true
+ *        schema: 
+ *          type: object
+ *          properties:
+ *            name: 
+ *               type: string
+ *            email:
+ *               type: string
+ *            password:
+ *               type: string                                                                                    
  *     responses:
  *       '200':
  *          description: A successful response
  */
+
 
 /**
  * @swagger
@@ -167,25 +207,64 @@ app.get("/user",() => {
  * @swagger
  * /api/posts{:postId}:
  *   get:
- *     tags: 
- *       - Post
+ *     tags:
+ *         - Post
  *     name: posts
- *     description: update  a post
+ *     summary: Get post by id
+ *     description: GET a post by Id
+ *     produces:
+ *      - application/json
+ *     consumes:
+ *     - application/json
+ *     parameters:
+ *      - name: postId
+ *        in: path
+ *        required: true
+ *        schema: 
+ *          type: string
  *     responses:
  *       '200':
  *          description: A successful response
+ *          schema:
+ *            type: object
+ *            properties:
+ *              id:
+ *                type: object
+ *              name:
+ *                type: string
  */
-/**
+
+
+
+ /**
  * @swagger
  * /api/posts{:postId}:
  *   delete:
  *     tags:
- *       - Post
+ *         - Post
  *     name: posts
- *     description: delete post
+ *     summary: Delete post 
+ *     description: DELETE a post 
+ *     produces:
+ *      - application/json
+ *     consumes:
+ *     - application/json
+ *     parameters:
+ *      - name: postId
+ *        in: path
+ *        required: true
+ *        schema: 
+ *          type: string
  *     responses:
  *       '200':
  *          description: A successful response
+ *          schema:
+ *            type: object
+ *            properties:
+ *              id:
+ *                type: object
+ *              name:
+ *                type: string
  */
 
 /**
@@ -193,13 +272,34 @@ app.get("/user",() => {
  * /api/posts{:postId}:
  *   patch:
  *     tags:
- *       - Post
+ *         - Post
  *     name: posts
- *     description: delete post
+ *     summary: update post by id
+ *     description: update a post by Id
+ *     produces:
+ *      - application/json
+ *     consumes:
+ *     - application/json
+ *     parameters:
+ *      - name: postId
+ *        in: path
+ *        required: true
+ *        schema: 
+ *          type: string
  *     responses:
  *       '200':
  *          description: A successful response
+ *          schema:
+ *            type: object
+ *            properties:
+ *              id:
+ *                type: object
+ *              name:
+ *                type: string
  */
+
+
+
 /**
  * @swagger
  * /api/posts{Id}:
