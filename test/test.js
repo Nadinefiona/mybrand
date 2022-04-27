@@ -1,8 +1,6 @@
-let chai = require("chai");
-let chaiHttp = require("chai-http");
-
-let server = require("../index");
-
+import chai from"chai";
+import chaiHttp from "chai-http";
+import server from '../index';
 //Assertion Style
 chai.should();
 chai.use(chaiHttp);
@@ -47,7 +45,7 @@ describe('Tasks API',() => {
       */
    
       describe("POST /api/user/register",() =>{
-         it("It should ADD All user",(done) => {
+         it("It should ADD new user",(done) => {
              
           chai.request(server)
              .post("./api/user/register")
@@ -141,6 +139,20 @@ describe('Tasks API',() => {
             done();
             });
         });
+
+        it("It shouldnot POST a new posts  without description",(done) => {
+         const post ={
+            description:"post4",
+            completed: false
+         };
+      chai.request(server)
+         .post("./api/posts")
+         .send(post)
+         .end((err, response) => {
+            
+         done();
+         });
+     });
      });
 
     /**
@@ -179,6 +191,21 @@ describe('Tasks API',() => {
             done();
             });
         });
+
+
+        it("It shouldnot PATCH a new posts  without description",(done) => {
+         const post ={
+            description:"post4",
+            completed: false
+         };
+      chai.request(server)
+         .post("./api/posts")
+         .send(post)
+         .end((err, response) => {
+            
+         done();
+         });
+     });
      });
 
 
@@ -221,7 +248,372 @@ describe('Tasks API',() => {
             done();
             });
         });
+
+        it("It shouldnot DELETE a posts  without description",(done) => {
+         const post ={
+            description:"post4",
+            completed: false
+         };
+      chai.request(server)
+         .post("./api/posts")
+         .send(post)
+         .end((err, response) => {
+            
+         done();
+         });
      });
+     });
+     describe("GET /api/posts",() =>{
+      it("It should GET All posts",(done) => {
+          
+       chai.request(server)
+          .post("./api/posts")
+          .end((err, response) => {
+             //  response.body.should.be.a('object');
+             //  response.body.should.have.property('id').eq(4);
+             //  response.body.should.have.property('title').eq(post4);
+             //  response.body.should.have.property('completed').eq(false);
+          done();
+          });
+      });
+       
+
+      it("It shouldnot GET all posts ",(done) => {
+          
+       chai.request(server)
+          .get("./api/posts")
+          .end((err, response) => {
+             
+          done();
+          });
+      });
+   });
+
+
+   
+
+
+
+
+
+     
+    /**
+      * Test POST route
+      */
+    
+     describe("POST /api/posts",() =>{
+      it("It should POST new comment",(done) => {
+          const post ={
+             name:"comment1",
+             completed: false
+          };
+       chai.request(server)
+          .post("./api/comments")
+          .send(post)
+          .end((err, response) => {
+             //  response.body.should.be.a('object');
+             //  response.body.should.have.property('id').eq(4);
+             //  response.body.should.have.property('title').eq(post4);
+             //  response.body.should.have.property('completed').eq(false);
+          done();
+          });
+      });
+       
+
+      it("It shouldnot POST a new comment without name",(done) => {
+          const post ={
+             name:"comment1",
+             completed: false
+          };
+       chai.request(server)
+          .post("./api/comments")
+          .send(post)
+          .end((err, response) => {
+             
+          done();
+          });
+      });
+
+      it("It shouldnot POST a new comment without comment",(done) => {
+         const post ={
+            comment:"comment1",
+            completed: false
+         };
+      chai.request(server)
+         .post("./api/comments")
+         .send(post)
+         .end((err, response) => {
+            
+         done();
+         });
+     });
+   });
+
+
+  /**
+    * Test DELETE route
+    */
+
+
+   describe("DELETE /api/comments",() =>{
+      it("It should DELETE comment",(done) => {
+          const post ={
+             name:"RHINNO",
+             completed: false
+          };
+       chai.request(server)
+          .post("./api/comments")
+          .send(post)
+          .end((err, response) => {
+             //  response.body.should.be.a('object');
+             //  response.body.should.have.property('id').eq(4);
+             //  response.body.should.have.property('title').eq(post4);
+             //  response.body.should.have.property('completed').eq(false);
+          done();
+          });
+      });
+       
+
+      it("It shouldnot DELETE comment  without name",(done) => {
+          const post ={
+             name:"comment1",
+             completed: false
+          };
+       chai.request(server)
+          .post("./api/comments")
+          .send(post)
+          .end((err, response) => {
+             
+          done();
+          });
+      });
+
+      it("It shouldnot DELETE comment  without comment",(done) => {
+         const post ={
+            comment:"comment1",
+            completed: false
+         };
+      chai.request(server)
+         .post("./api/comments")
+         .send(post)
+         .end((err, response) => {
+            
+         done();
+         });
+     });
+   });
+
+
+   describe("GET /api/comments",() =>{
+      it("It should GET All comments",(done) => {
+          
+       chai.request(server)
+          .get("./api/comments")
+          .end((err, response) => {
+             //  response.body.should.be.a('object');
+             //  response.body.should.have.property('id').eq(4);
+             //  response.body.should.have.property('title').eq(post4);
+             //  response.body.should.have.property('completed').eq(false);
+          done();
+          });
+      });
+       
+
+      it("It shouldnot GET all  comments",(done) => {
+          
+       chai.request(server)
+          .get("./api/comments")
+          .end((err, response) => {
+             
+          done();
+          });
+      });
+   });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   
+    /**
+      * Test POST route
+      */
+    
+     describe("POST /api/messages",() =>{
+      it("It should POST new message",(done) => {
+          const post ={
+             title:"message1",
+             completed: false
+          };
+       chai.request(server)
+          .post("./api/messages")
+          .send(post)
+          .end((err, response) => {
+             //  response.body.should.be.a('object');
+             //  response.body.should.have.property('id').eq(4);
+             //  response.body.should.have.property('title').eq(post4);
+             //  response.body.should.have.property('completed').eq(false);
+          done();
+          });
+      });
+       
+
+      it("It shouldnot POST a new message  without name",(done) => {
+          const post ={
+             title:"message1",
+             completed: false
+          };
+       chai.request(server)
+          .post("./api/messages")
+          .send(post)
+          .end((err, response) => {
+             
+          done();
+          });
+      });
+
+      it("It shouldnot POST a new message  without message",(done) => {
+         const post ={
+            message:"message1",
+            completed: false
+         };
+      chai.request(server)
+         .post("./api/messages")
+         .send(post)
+         .end((err, response) => {
+            
+         done();
+         });
+     });
+     it("It shouldnot POST a new message  without email",(done) => {
+      const post ={
+         email:"fgghjk1@gh.cm",
+         completed: false
+      };
+   chai.request(server)
+      .post("./api/messages")
+      .send(post)
+      .end((err, response) => {
+         
+      done();
+      });
+  });
+
+   });
+
+
+
+
+  /**
+    * Test DELETE route
+    */
+
+
+   describe("DELETE /api/messages",() =>{
+      it("It should DELETE message",(done) => {
+          const post ={
+             title:"message1",
+             completed: false
+          };
+       chai.request(server)
+          .post("./api/messages")
+          .send(post)
+          .end((err, response) => {
+             //  response.body.should.be.a('object');
+             //  response.body.should.have.property('id').eq(4);
+             //  response.body.should.have.property('title').eq(post4);
+             //  response.body.should.have.property('completed').eq(false);
+          done();
+          });
+      });
+       
+
+      it("It shouldnot DELETE message without name",(done) => {
+          const post ={
+             title:"message1",
+             completed: false
+          };
+       chai.request(server)
+          .post("./api/messages")
+          .send(post)
+          .end((err, response) => {
+             
+          done();
+          });
+      });
+
+      
+      it("It shouldnot DELETE message without email",(done) => {
+         const post ={
+            title:"messafgh@we.dff",
+            completed: false
+         };
+      chai.request(server)
+         .post("./api/messages")
+         .send(post)
+         .end((err, response) => {
+            
+         done();
+         });
+     });
+
+     
+      it("It shouldnot DELETE message without message",(done) => {
+      const post ={
+         message:"message1",
+         completed: false
+      };
+       chai.request(server)
+      .post("./api/messages")
+      .send(post)
+      .end((err, response) => {
+         
+      done();
+       });
+      });
+
+   });
+
+   describe("GET /api/messages",() =>{
+      it("It should GET All messages",(done) => {
+          
+       chai.request(server)
+          .get("./api/messages")
+          .end((err, response) => {
+             //  response.body.should.be.a('object');
+             //  response.body.should.have.property('id').eq(4);
+             //  response.body.should.have.property('title').eq(post4);
+             //  response.body.should.have.property('completed').eq(false);
+          done();
+          });
+      });
+       
+
+      it("It shouldnot GET all messages ",(done) => {
+          
+       chai.request(server)
+          .get("./api/messages")
+          .end((err, response) => {
+             
+          done();
+          });
+      });
+   });
+
+
 
 
 });
+

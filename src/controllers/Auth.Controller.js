@@ -1,35 +1,13 @@
-const router = require('express').Router();
-const User = require('../model/User');
-const jwt = require('jsonwebtoken');
- const {registerValidation, loginValidation} = require('../routes/validation');
-// const bcrypt = require('bcryptjs');
-
-
-
-
-//validation
-const Joi = require('@hapi/joi');
-const bcrypt = require('bcryptjs/dist/bcrypt');
-
-
-
-// const schema = {
-//     name: Joi.string()
-//         .min(6)
-//         .required(),
-//     email: Joi.string()
-//         .min(6)
-//         .required()
-//         .email(),
-//     password: Joi.string()
-//         .min(6)
-//         .required()
-// }
-const schema = Joi.object({ name: Joi.string() .min(6) .required(),
+import User from '../model/User';
+import jwt from'jsonwebtoken';
+import Joi from'@hapi/joi';
+export const schema = Joi.object({ 
+    name: Joi.string() .min(6) .required(),
     email: Joi.string() .min(6) .required() .email(),
-    password: Joi.string() .min(6) .required() });
+    password: Joi.string() .min(6) .required() 
+});
 
-router.post('/register', async (req,res) => {
+export const register = async (req,res) => {
 
     //Lets validate   the data before  we  create a user
     // const validation = Joi.validate(req.body, schema);
@@ -60,48 +38,10 @@ router.post('/register', async (req,res) => {
     }catch(err){
         res.status(400).send(err);
     }
-});
+}
 
 
-
-
-//GET ALL  USERS
-
-router.get('/register', async (req,res) =>{
-        try{
-       const user = await User.find()
-       res.send(user);
-    }catch(err){
-        res.status.send(err);
-    }
-});
-
-
-
-//Get one user
-router.get('/register/:userId' , async (req,res) => {
-    try {
-     const user = await User.findById(req.params.userId);
-     res.send(user);
-    } catch (err) {
-    res.status.send(err);  
-    }
-  });
-
-
-
-//LOGIN
-
-// const schema = Joi.object({ name: Joi.string() .min(6) .required(),
-//     email: Joi.string() .min(6) .required() .email(),
-//     password: Joi.string() .min(6) .required() });
-
-
-    
-   
-
-
-router.post('/login', async (req,res) => {
+export const login =  async (req,res) => {
 
     const {error} = schema.validate(req.body);
     if(error) return res.status(400).send(error.details[0].message);
@@ -123,6 +63,23 @@ router.post('/login', async (req,res) => {
 
      res.send('Login successful!');
 
-});
+}
 
-module.exports = router;
+
+export const UserbyId = async (req,res) => {
+    try {
+     const user = await User.findById(req.params.userId);
+     res.send(user);
+    } catch (err) {
+    res.status.send(err);  
+    }
+  }
+export const allUsers = async (req,res) =>{
+    try{
+   const user = await User.find()
+   res.send(user);
+}catch(err){
+    res.status.send(err);
+}
+}
+

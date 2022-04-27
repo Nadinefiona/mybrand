@@ -1,10 +1,10 @@
-const express = require('express');
+import express from 'express';
 const app = express();
-const YAML = require('yamljs');
-const dotenv = require('dotenv');
-const mongoose = require('mongoose');
-const swaggerJsDoc = require('swagger-jsdoc');
-const swaggerUi = require('swagger-ui-express');
+import YAML from 'yamljs';
+import dotenv from'dotenv';
+import mongoose from'mongoose';
+import swaggerJsDoc from 'swagger-jsdoc';
+import swaggerUi from 'swagger-ui-express';
 app.use(express.json());
 require('dotenv').config({ path: 'ENV_FILENAME' });
 
@@ -302,12 +302,12 @@ app.get("/user",() => {
 
 /**
  * @swagger
- * /api/posts{Id}:
+ * /api/comments{:Id}:
  *   delete:
  *     tags: 
  *       - Comment
  *     name: comment
- *     description: update  a post
+ *     description: delete  a  comment
  *     responses:
  *       '200':
  *          description: A successful response
@@ -315,12 +315,12 @@ app.get("/user",() => {
 
 /**
  * @swagger
- * /api/posts{Id}:
+ * /api/comments:
  *   get:
  *     tags: 
  *       - Comment
  *     name: comment
- *     description: update  a post
+ *     description: get all comments
  *     responses:
  *       '200':
  *          description: A successful response
@@ -330,12 +330,12 @@ app.get("/user",() => {
 
 /**
  * @swagger
- * /api/posts:
+ * /api/comments:
  *   put:
  *     tags: 
  *       - Comment
  *     name: comment
- *     description: update  a post
+ *     description: add  a comment
  *     responses:
  *       '200':
  *          description: A successful response
@@ -384,12 +384,12 @@ app.get("/user",() => {
 
 /**
  * @swagger
- * /api/posts{:Id}:
+ * /api/messages{:Id}:
  *   post:
  *     tags: 
  *       - Message
  *     name: message
- *     description: update  a post
+ *     description: post a message
  *     responses:
  *       '200':
  *          description: A successful response
@@ -399,43 +399,34 @@ app.get("/user",() => {
 
 /**
  * @swagger
- * /api/posts:
+ * /api/messages{:Id}:
  *   delete:
  *     tags: 
  *       - Message
  *     name: message
- *     description: update  a post
+ *     description: delete  a message
  *     responses:
  *       '200':
  *          description: A successful response
  */
 
 // Import Routes
-const authRoute = require('./routes/auth');
-const postRoute = require('./routes/posts');
-const res = require('express/lib/response');
-// const router = require('./routes/auth');
+import authRoute from './src/routes/auth';
+import messageRoute from './src/routes/message';
+import commentRoute from './src/routes/comment';
+import postRoute from './src/routes/posts';
+import res from 'express/lib/response';
 
 dotenv.config();
 
 
 
 //Connect to DB
+mongoose.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.6zhup.mongodb.net/database?retryWrites=true&w=majority`,
 
-
-mongoose.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.6zhup.mongodb.net/database?retryWrites=true&w=majority`,() =>{
+() =>{
   console.log('connected to db!')
 });
-
-
-
-// mongoose.connect(
-// `${process.env.DB_CONNECT}`
-// ,() =>{
-//   console.log('connected to db!')
-// });
-
-
 
 
 //Middlewares
@@ -445,8 +436,10 @@ app.use(express.json());
 //Route Middlewares
 app.use('/api/user', authRoute);
 app.use('/api/posts', postRoute);
+app.use('/api/messages', messageRoute);
+app.use('/api/comments', commentRoute);
 
 app.listen(300, () => console.log('Server Up and running'));
 
 
-module.exports = app;
+export default app;

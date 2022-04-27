@@ -1,9 +1,9 @@
-const Joi = require('@hapi/joi');
+import Joi from '@hapi/joi';
 
 
 
 
-//register validation
+//Register validation
 
 
 const registerValidation = data => {
@@ -15,6 +15,7 @@ const registerValidation = data => {
     return schema.validate(data,schema);
 };
 
+//Login Validation
 
 const loginValidation = data => {
     const schema = Joi.object({ 
