@@ -7,7 +7,7 @@ import swaggerJsDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 app.use(express.json());
 require('dotenv').config({ path: 'ENV_FILENAME' });
-
+const PORT = process.env.PORT || 3000
 
 
 const swaggerOptions = {
@@ -19,7 +19,7 @@ const swaggerOptions = {
            contact: {
                email: 'nadinefiona9@gmail.com'
            },
-        servers:["http://localhost:300"]
+        servers:["http://localhost:3000"]
        },
        schemes: ["http"]
    },
@@ -439,7 +439,7 @@ app.use('/api/posts', postRoute);
 app.use('/api/messages', messageRoute);
 app.use('/api/comments', commentRoute);
 
-app.listen(300, () => console.log('Server Up and running'));
+app.listen(PORT, () => console.log('Server Up and running'));
 
 
 export default app;

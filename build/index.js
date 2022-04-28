@@ -36,6 +36,7 @@ require('dotenv').config({
   path: 'ENV_FILENAME'
 });
 
+var PORT = process.env.PORT || 3000;
 var swaggerOptions = {
   definition: {
     info: {
@@ -45,14 +46,14 @@ var swaggerOptions = {
       contact: {
         email: 'nadinefiona9@gmail.com'
       },
-      servers: ["http://localhost:300"]
+      servers: ["http://localhost:3000"]
     },
     schemes: ["http"]
   },
   apis: ["index.js"]
 };
 var swaggerDos = (0, _swaggerJsdoc["default"])(swaggerOptions);
-app.use('/api-docs', _swaggerUiExpress["default"].serve, _swaggerUiExpress["default"].setup(swaggerDos));
+app.use('', _swaggerUiExpress["default"].serve, _swaggerUiExpress["default"].setup(swaggerDos));
 app.get("/user", function () {
   _response["default"].status.send("user results");
 });
@@ -433,7 +434,7 @@ app.use('/api/user', _auth["default"]);
 app.use('/api/posts', _posts["default"]);
 app.use('/api/messages', _message["default"]);
 app.use('/api/comments', _comment["default"]);
-app.listen(300, function () {
+app.listen(PORT, function () {
   return console.log('Server Up and running');
 });
 var _default = app;
