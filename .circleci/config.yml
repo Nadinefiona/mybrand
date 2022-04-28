@@ -1,0 +1,48 @@
+# version: 2
+# orbs:
+#   node: circleci/node@4.7.0
+# jobs:
+#   node-12.4:
+#     docker:
+#       - image: circleci/node:latest-browsers
+#       - image: circleci/mongo:4.2
+#         environment:
+#           - DB_CONNECTION_STRING: "mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.6zhup.mongodb.net/database?retryWrites=true&w=majority"
+#     # working_directory: ~/project
+#     # before_script: chmod 0777 ./node_modules/.bin/mocha 
+#     steps:
+#       - checkout
+#       - run: npm install
+#       - run: npm test
+#       - run: npm test_coverage
+# workflows:
+#   version: 2
+#   build:
+#     jobs:
+#       - node-12.4: 
+#           context: mongo
+
+
+version: 2.1
+
+orbs:
+  node: circleci/node@4.7
+
+jobs:
+  build-and-test:
+    docker:
+      - image: cimg/node:16.10
+      - image: circleci/mongo:4.2.0
+    steps:
+      - checkout
+      - node/install-packages:
+          pkg-manager: npm
+      - run:
+          name: Run tests
+          command: npm run coverage
+      - store_artifacts:
+          path: coverage
+workflows:
+  sample:
+    jobs:
+      - build-and-test
