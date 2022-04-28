@@ -1,47 +1,68 @@
-const express = require('express');
+"use strict";
 
-const app = express();
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = void 0;
 
-const YAML = require('yamljs');
+var _express = _interopRequireDefault(require("express"));
 
-const dotenv = require('dotenv');
+var _yamljs = _interopRequireDefault(require("yamljs"));
 
-const mongoose = require('mongoose');
+var _dotenv = _interopRequireDefault(require("dotenv"));
 
-const swaggerJsDoc = require('swagger-jsdoc');
+var _mongoose = _interopRequireDefault(require("mongoose"));
 
-const swaggerUi = require('swagger-ui-express');
+var _swaggerJsdoc = _interopRequireDefault(require("swagger-jsdoc"));
 
-app.use(express.json());
+var _swaggerUiExpress = _interopRequireDefault(require("swagger-ui-express"));
+
+var _auth = _interopRequireDefault(require("./routes/auth"));
+
+var _message = _interopRequireDefault(require("./routes/message"));
+
+var _comment = _interopRequireDefault(require("./routes/comment"));
+
+var _posts = _interopRequireDefault(require("./routes/posts"));
+
+var _response = _interopRequireDefault(require("express/lib/response"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+var app = (0, _express["default"])();
+app.use(_express["default"].json());
 
 require('dotenv').config({
   path: 'ENV_FILENAME'
 });
 
-const swaggerOptions = {
+var swaggerOptions = {
   definition: {
-    openapi: '3.0.0',
     info: {
-      title: 'User API',
-      description: 'User  API  information',
+      title: 'Portfolio API',
+      version: '1.0.0',
+      description: 'Portfolio API  information',
       contact: {
-        name: 'web developer'
+        email: 'nadinefiona9@gmail.com'
       },
       servers: ["http://localhost:300"]
-    }
+    },
+    schemes: ["http"]
   },
   apis: ["index.js"]
 };
-const swaggerDos = swaggerJsDoc(swaggerOptions);
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDos));
-app.get("/user", () => {
-  res.status.send("user results");
+var swaggerDos = (0, _swaggerJsdoc["default"])(swaggerOptions);
+app.use('/api-docs', _swaggerUiExpress["default"].serve, _swaggerUiExpress["default"].setup(swaggerDos));
+app.get("/user", function () {
+  _response["default"].status.send("user results");
 });
 /**
-
  * @swagger 
  * /api/user/register:
  *   get:
+ *     tags: 
+ *       - User
+ *     name: users
  *     summary: Get all  users
  *     description: Use to request all users
  *     responses:
@@ -53,7 +74,28 @@ app.get("/user", () => {
  * @swagger
  * /api/user/register:
  *   post:
+ *     tags: 
+ *        - User
+ *     name: users
+ *     summary: add user
  *     description: add new user
+ *     produces:
+ *      - application/json
+ *     consumes:
+ *     - application/json
+ *     parameters:
+ *      - in: body
+ *        name: post
+ *        required: true
+ *        schema: 
+ *          type: object
+ *          properties:
+ *            name: 
+ *               type: string
+ *            email:
+ *               type: string
+ *            password:
+ *               type: string                                                                                    
  *     responses:
  *       '200':
  *          description: A successful response
@@ -63,6 +105,9 @@ app.get("/user", () => {
  * @swagger
  * /api/user/register/{:userId}:
  *   get:
+ *     tags:
+ *         - User
+ *     name: users
  *     summary: Get user by id
  *     description: GET a user by Id
  *     produces:
@@ -91,7 +136,28 @@ app.get("/user", () => {
  * @swagger
  * /api/user/login:
  *   post:
+ *     tags: 
+ *        - User
+ *     name: users
+ *     summary: login
  *     description: login
+ *     produces:
+ *      - application/json
+ *     consumes:
+ *     - application/json
+ *     parameters:
+ *      - in: body
+ *        name: post
+ *        required: true
+ *        schema: 
+ *          type: object
+ *          properties:
+ *            name: 
+ *               type: string
+ *            email:
+ *               type: string
+ *            password:
+ *               type: string                                                                                    
  *     responses:
  *       '200':
  *          description: A successful response
@@ -101,6 +167,9 @@ app.get("/user", () => {
  * @swagger
  * /api/posts:
  *   post:
+ *     tags: 
+ *        - Post
+ *     name: posts
  *     summary: add post
  *     description: add post
  *     produces:
@@ -143,6 +212,9 @@ app.get("/user", () => {
  * @swagger
  * /api/posts:
  *   get:
+ *     tags:
+ *       - Post
+ *     name: posts
  *     description: get all posts
  *     responses:
  *       '200':
@@ -152,8 +224,130 @@ app.get("/user", () => {
 /**
  * @swagger
  * /api/posts{:postId}:
- *   post:
- *     description: update  a post
+ *   get:
+ *     tags:
+ *         - Post
+ *     name: posts
+ *     summary: Get post by id
+ *     description: GET a post by Id
+ *     produces:
+ *      - application/json
+ *     consumes:
+ *     - application/json
+ *     parameters:
+ *      - name: postId
+ *        in: path
+ *        required: true
+ *        schema: 
+ *          type: string
+ *     responses:
+ *       '200':
+ *          description: A successful response
+ *          schema:
+ *            type: object
+ *            properties:
+ *              id:
+ *                type: object
+ *              name:
+ *                type: string
+ */
+
+/**
+* @swagger
+* /api/posts{:postId}:
+*   delete:
+*     tags:
+*         - Post
+*     name: posts
+*     summary: Delete post 
+*     description: DELETE a post 
+*     produces:
+*      - application/json
+*     consumes:
+*     - application/json
+*     parameters:
+*      - name: postId
+*        in: path
+*        required: true
+*        schema: 
+*          type: string
+*     responses:
+*       '200':
+*          description: A successful response
+*          schema:
+*            type: object
+*            properties:
+*              id:
+*                type: object
+*              name:
+*                type: string
+*/
+
+/**
+ * @swagger
+ * /api/posts{:postId}:
+ *   patch:
+ *     tags:
+ *         - Post
+ *     name: posts
+ *     summary: update post by id
+ *     description: update a post by Id
+ *     produces:
+ *      - application/json
+ *     consumes:
+ *     - application/json
+ *     parameters:
+ *      - name: postId
+ *        in: path
+ *        required: true
+ *        schema: 
+ *          type: string
+ *     responses:
+ *       '200':
+ *          description: A successful response
+ *          schema:
+ *            type: object
+ *            properties:
+ *              id:
+ *                type: object
+ *              name:
+ *                type: string
+ */
+
+/**
+ * @swagger
+ * /api/comments{:Id}:
+ *   delete:
+ *     tags: 
+ *       - Comment
+ *     name: comment
+ *     description: delete  a  comment
+ *     responses:
+ *       '200':
+ *          description: A successful response
+ */
+
+/**
+ * @swagger
+ * /api/comments:
+ *   get:
+ *     tags: 
+ *       - Comment
+ *     name: comment
+ *     description: get all comments
+ *     responses:
+ *       '200':
+ *          description: A successful response
+ */
+
+/**
+ * @swagger
+ * /api/comments:
+ *   put:
+ *     tags: 
+ *       - Comment
+ *     name: comment
+ *     description: add  a comment
  *     responses:
  *       '200':
  *          description: A successful response
@@ -162,35 +356,85 @@ app.get("/user", () => {
 /**
  * @swagger
  * /api/posts{:postId}:
+ *   put:
+ *     tags: 
+ *       - Articles
+ *     name: articles
+ *     description: update  a post
+ *     responses:
+ *       '200':
+ *          description: A successful response
+ */
+
+/**
+ * @swagger
+ * /api/posts{:id}:
+ *   get:
+ *     tags: 
+ *       - Articles
+ *     name: articles
+ *     description: update  a post
+ *     responses:
+ *       '200':
+ *          description: A successful response
+ */
+
+/**
+ * @swagger
+ * /api/posts{:id}:
  *   delete:
- *     description: delete post
+ *     tags: 
+ *       - Articles
+ *     name: articles
+ *     description: update  a post
+ *     responses:
+ *       '200':
+ *          description: A successful response
+ */
+
+/**
+ * @swagger
+ * /api/messages{:Id}:
+ *   post:
+ *     tags: 
+ *       - Message
+ *     name: message
+ *     description: post a message
+ *     responses:
+ *       '200':
+ *          description: A successful response
+ */
+
+/**
+ * @swagger
+ * /api/messages{:Id}:
+ *   delete:
+ *     tags: 
+ *       - Message
+ *     name: message
+ *     description: delete  a message
  *     responses:
  *       '200':
  *          description: A successful response
  */
 // Import Routes
 
-const authRoute = require('./routes/auth');
-
-const postRoute = require('./routes/posts');
-
-const res = require('express/lib/response'); // const router = require('./routes/auth');
+_dotenv["default"].config(); //Connect to DB
 
 
-dotenv.config(); //Connect to DB
-
-mongoose.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.6zhup.mongodb.net/database?retryWrites=true&w=majority`, () => {
+_mongoose["default"].connect("mongodb+srv://".concat(process.env.DB_USER, ":").concat(process.env.DB_PASSWORD, "@cluster0.6zhup.mongodb.net/database?retryWrites=true&w=majority"), function () {
   console.log('connected to db!');
-}); // mongoose.connect(
-// `${process.env.DB_CONNECT}`
-// ,() =>{
-//   console.log('connected to db!')
-// });
-//Middlewares
+}); //Middlewares
 
-app.use(express.json()); //Route Middlewares
 
-app.use('/api/user', authRoute);
-app.use('/api/posts', postRoute);
-app.listen(300, () => console.log('Server Up and running'));
-module.exports = app;
+app.use(_express["default"].json()); //Route Middlewares
+
+app.use('/api/user', _auth["default"]);
+app.use('/api/posts', _posts["default"]);
+app.use('/api/messages', _message["default"]);
+app.use('/api/comments', _comment["default"]);
+app.listen(300, function () {
+  return console.log('Server Up and running');
+});
+var _default = app;
+exports["default"] = _default;

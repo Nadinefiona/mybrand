@@ -411,10 +411,10 @@ app.get("/user",() => {
  */
 
 // Import Routes
-import authRoute from './src/routes/auth';
-import messageRoute from './src/routes/message';
-import commentRoute from './src/routes/comment';
-import postRoute from './src/routes/posts';
+import authRoute from './routes/auth';
+import messageRoute from './routes/message';
+import commentRoute from './routes/comment';
+import postRoute from './routes/posts';
 import res from 'express/lib/response';
 
 dotenv.config();

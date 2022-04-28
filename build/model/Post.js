@@ -1,6 +1,8 @@
-const mongoose = require('mongoose');
+"use strict";
 
-const PostSchema = mongoose.Schema({
+var mongoose = require('mongoose');
+
+var PostSchema = mongoose.Schema({
   title: {
     type: String,
     required: true
@@ -11,7 +13,7 @@ const PostSchema = mongoose.Schema({
   },
   date: {
     type: Date,
-    default: Date.now
+    "default": Date.now
   }
 });
 module.exports = mongoose.model('Posts', PostSchema);
