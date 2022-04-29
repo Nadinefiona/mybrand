@@ -1,6 +1,7 @@
 import User from '../model/User';
 import jwt from'jsonwebtoken';
 import Joi from'@hapi/joi';
+import bcrypt from'bcryptjs/dist/bcrypt';
 export const schema = Joi.object({ 
     name: Joi.string() .min(6) .required(),
     email: Joi.string() .min(6) .required() .email(),
@@ -22,8 +23,8 @@ export const register = async (req,res) => {
 
 
     //hash the password
-    // const salt = await bcrypt.gentSalt(10);
-    // const hashedPassword = await bcrypt.hash(req.body.password,salt);
+    const salt = await bcrypt.gentSalt(10);
+    const hashedPassword = await bcrypt.hash(req.body.password,salt);
 
 
     //create  a new  user
@@ -54,12 +55,12 @@ export const login =  async (req,res) => {
     //check if password is correct
      
 
-    // const validPass =  await bcrypt.compare.apply(req.body.password, user.password);
-    // if(!validPass) return res.status(400).send('Invalid password')
+    const validPass =  await bcrypt.compare.apply(req.body.password, user.password);
+    if(!validPass) return res.status(400).send('Invalid password')
 
 
-    // const token = jwt.sign({_id: user.id},process.env.TOKEN_SECRET);
-    // res.header('auth_token',token).send(token);
+    const token = jwt.sign({_id: user.id},process.env.TOKEN_SECRET);
+    res.header('authorization',token).send(token);
 
      res.send('Login successful!');
 

@@ -2,6 +2,7 @@
 import express from 'express';
 import User from '../model/User';
 import jwt from'jsonwebtoken';
+import authorization from '../Middlewares/Authorization';
 import {register,login, UserbyId, allUsers} from '../controllers/Auth.Controller';
 import {registerValidation, loginValidation} from'../routes/validation';
 import Joi from'@hapi/joi';
@@ -10,7 +11,7 @@ const router = express.Router();
 
 
 //ADD NEW USER
-router.post('/register', register);
+router.post('/register' , authorization, register);
 
 //GET ALL  USERS
 router.get('/register', allUsers);

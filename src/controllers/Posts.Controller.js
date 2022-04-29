@@ -1,4 +1,6 @@
 import express from 'express';
+import Joi from'@hapi/joi';
+import bcrypt from'bcryptjs/dist/bcrypt';
 const router = express.Router();
 import Post from '../model/Post';
 

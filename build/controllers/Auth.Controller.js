@@ -11,6 +11,8 @@ var _jsonwebtoken = _interopRequireDefault(require("jsonwebtoken"));
 
 var _joi = _interopRequireDefault(require("@hapi/joi"));
 
+var _bcrypt = _interopRequireDefault(require("bcryptjs/dist/bcrypt"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -27,7 +29,7 @@ exports.schema = schema;
 
 var register = /*#__PURE__*/function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(req, res) {
-    var _schema$validate, error, emailExist, user, savedUser;
+    var _schema$validate, error, emailExist, salt, hashedPassword, user, savedUser;
 
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
@@ -60,36 +62,43 @@ var register = /*#__PURE__*/function () {
             return _context.abrupt("return", res.status(400).send('Email already exist'));
 
           case 8:
-            //hash the password
-            // const salt = await bcrypt.gentSalt(10);
-            // const hashedPassword = await bcrypt.hash(req.body.password,salt);
+            _context.next = 10;
+            return _bcrypt["default"].gentSalt(10);
+
+          case 10:
+            salt = _context.sent;
+            _context.next = 13;
+            return _bcrypt["default"].hash(req.body.password, salt);
+
+          case 13:
+            hashedPassword = _context.sent;
             //create  a new  user
             user = new _User["default"]({
               name: req.body.name,
               email: req.body.email,
               password: req.body.password
             });
-            _context.prev = 9;
-            _context.next = 12;
+            _context.prev = 15;
+            _context.next = 18;
             return user.save();
 
-          case 12:
+          case 18:
             savedUser = _context.sent;
             res.send(savedUser);
-            _context.next = 19;
+            _context.next = 25;
             break;
 
-          case 16:
-            _context.prev = 16;
-            _context.t0 = _context["catch"](9);
+          case 22:
+            _context.prev = 22;
+            _context.t0 = _context["catch"](15);
             res.status(400).send(_context.t0);
 
-          case 19:
+          case 25:
           case "end":
             return _context.stop();
         }
       }
-    }, _callee, null, [[9, 16]]);
+    }, _callee, null, [[15, 22]]);
   }));
 
   return function register(_x, _x2) {
@@ -101,7 +110,7 @@ exports.register = register;
 
 var login = /*#__PURE__*/function () {
   var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(req, res) {
-    var _schema$validate2, error, user;
+    var _schema$validate2, error, user, validPass, token;
 
     return regeneratorRuntime.wrap(function _callee2$(_context2) {
       while (1) {
@@ -131,14 +140,27 @@ var login = /*#__PURE__*/function () {
             return _context2.abrupt("return", res.status(400).send('Email is not found'));
 
           case 8:
-            //check if password is correct
-            // const validPass =  await bcrypt.compare.apply(req.body.password, user.password);
-            // if(!validPass) return res.status(400).send('Invalid password')
-            // const token = jwt.sign({_id: user.id},process.env.TOKEN_SECRET);
-            // res.header('auth_token',token).send(token);
+            _context2.next = 10;
+            return _bcrypt["default"].compare.apply(req.body.password, user.password);
+
+          case 10:
+            validPass = _context2.sent;
+
+            if (validPass) {
+              _context2.next = 13;
+              break;
+            }
+
+            return _context2.abrupt("return", res.status(400).send('Invalid password'));
+
+          case 13:
+            token = _jsonwebtoken["default"].sign({
+              _id: user.id
+            }, process.env.TOKEN_SECRET);
+            res.header('authorization', token).send(token);
             res.send('Login successful!');
 
-          case 9:
+          case 16:
           case "end":
             return _context2.stop();
         }
