@@ -36,5 +36,23 @@
     "chai-http": "^4.3.0",
     "nodeman": "^1.1.2",
     "nodemon": "^2.0.15"
-  }
+  },
+  "name": "mybrand",
+  "description": "[![CircleCI](https://circleci.com/gh/Nadinefiona/mybrand/tree/ft-endpoint.svg?style=svg)](https://circleci.com/gh/Nadinefiona/mybrand/tree/ft-endpoint)",
+  "version": "1.0.0",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nadinefiona/mybrand.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Nadinefiona/mybrand/issues"
+  },
+  "homepage": "https://github.com/Nadinefiona/mybrand#readme"
 }
