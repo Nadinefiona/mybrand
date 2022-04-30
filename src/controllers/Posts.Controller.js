@@ -1,8 +1,10 @@
 import express from 'express';
+import multer from 'multer';
 import Joi from'@hapi/joi';
 import bcrypt from'bcryptjs/dist/bcrypt';
 const router = express.Router();
 import Post from '../model/Post';
+const upload = multer({dest: '/uploads/'});
 
 export const getAllPost = async (req,res) =>  {
     try {
@@ -15,8 +17,8 @@ export const getAllPost = async (req,res) =>  {
 
 
 export const AddPost = async (req,res) => {
+    console.log(req.file);
     const post = new Post({
-        image: req.body.image,
         title: req.body.title,
         description: req.body.description
     });

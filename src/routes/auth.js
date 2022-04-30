@@ -11,13 +11,13 @@ const router = express.Router();
 
 
 //ADD NEW USER
-router.post('/register', register);
+router.post('/', register);
 
 //GET ALL  USERS
-router.get('/register', allUsers);
+router.get('/', allUsers);
 
 //GET USER BY ID
-router.get('/register/:userId' , UserbyId);
+router.get('/:userId' , UserbyId);
 
 //LOGIN
 router.post('/login', login);

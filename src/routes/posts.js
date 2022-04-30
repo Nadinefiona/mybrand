@@ -1,5 +1,7 @@
 import express from 'express';
+import multer from 'multer';
 const router = express.Router();
+const upload = multer({dest: '/uploads/'});
 import Post from '../model/Post';
 import authorization from '../Middlewares/Authorization';
 import{AddPost, DeleteOne, getAllPost, GetOnePost, UpdateOne} from '../controllers/Posts.Controller';
@@ -8,7 +10,7 @@ import{AddPost, DeleteOne, getAllPost, GetOnePost, UpdateOne} from '../controlle
 router.get('/', getAllPost);
 
 //SUBMIT POSTS
-router.post('/',authorization , AddPost);
+router.post('/',upload.single('postImage') , AddPost);
 
 //SPECIFIC POSTS
 router.get('/:postId' , GetOnePost);

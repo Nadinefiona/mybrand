@@ -28,7 +28,7 @@ const swaggerOptions = {
 };
 
 const swaggerDos =  swaggerJsDoc(swaggerOptions);
-app.use('', swaggerUi.serve, swaggerUi.setup(swaggerDos));
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDos));
 
 app.get("/user",() => {
    res.status.send("user results");
@@ -51,7 +51,7 @@ app.get("/user",() => {
 
 /**
  * @swagger
- * /api/user/register:
+ * /api/users:
  *   post:
  *     tags: 
  *        - User
@@ -84,7 +84,7 @@ app.get("/user",() => {
 
 /**
  * @swagger
- * /api/user/register/{:userId}:
+ * /api/users/{:userId}:
  *   get:
  *     tags:
  *         - User
@@ -115,7 +115,7 @@ app.get("/user",() => {
 
 /**
  * @swagger
- * /api/user/login:
+ * /api/users/login:
  *   post:
  *     tags: 
  *        - User
@@ -435,7 +435,7 @@ app.use(express.json());
 
 
 //Route Middlewares
-app.use('/api/user', authRoute);
+app.use('/api/users', authRoute);
 app.use('/api/posts', postRoute);
 app.use('/api/messages', messageRoute);
 app.use('/api/comments', commentRoute);
