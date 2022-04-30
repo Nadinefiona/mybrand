@@ -16,6 +16,7 @@ export const getAllPost = async (req,res) =>  {
 
 export const AddPost = async (req,res) => {
     const post = new Post({
+        image: req.body.image,
         title: req.body.title,
         description: req.body.description
     });

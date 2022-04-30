@@ -28,7 +28,7 @@ const swaggerOptions = {
 };
 
 const swaggerDos =  swaggerJsDoc(swaggerOptions);
-app.use('', swaggerUi.serve, swaggerUi.setup(swaggerDos));
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDos));
 
 app.get("/user",() => {
    res.status.send("user results");
@@ -440,7 +440,7 @@ app.use('/api/posts', postRoute);
 app.use('/api/messages', messageRoute);
 app.use('/api/comments', commentRoute);
 
-app.listen(PORT, () => console.log('Server Up and running'));
+app.listen(3000, () => console.log('Server Up and running'));
 
 
 export default app;

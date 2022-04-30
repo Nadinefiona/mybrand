@@ -53,7 +53,7 @@ var swaggerOptions = {
   apis: ["index.js"]
 };
 var swaggerDos = (0, _swaggerJsdoc["default"])(swaggerOptions);
-app.use('', _swaggerUiExpress["default"].serve, _swaggerUiExpress["default"].setup(swaggerDos));
+app.use('/api-docs', _swaggerUiExpress["default"].serve, _swaggerUiExpress["default"].setup(swaggerDos));
 app.get("/user", function () {
   _response["default"].status.send("user results");
 });
@@ -434,7 +434,7 @@ app.use('/api/user', _auth["default"]);
 app.use('/api/posts', _posts["default"]);
 app.use('/api/messages', _message["default"]);
 app.use('/api/comments', _comment["default"]);
-app.listen(PORT, function () {
+app.listen(3000, function () {
   return console.log('Server Up and running');
 });
 var _default = app;

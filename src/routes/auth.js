@@ -11,7 +11,7 @@ const router = express.Router();
 
 
 //ADD NEW USER
-router.post('/register' , authorization, register);
+router.post('/register', register);
 
 //GET ALL  USERS
 router.get('/register', allUsers);

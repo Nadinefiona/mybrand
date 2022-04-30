@@ -29,7 +29,7 @@ exports.schema = schema;
 
 var register = /*#__PURE__*/function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(req, res) {
-    var _schema$validate, error, emailExist, salt, hashedPassword, user, savedUser;
+    var _schema$validate, error, emailExist, user, savedUser;
 
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
@@ -62,43 +62,33 @@ var register = /*#__PURE__*/function () {
             return _context.abrupt("return", res.status(400).send('Email already exist'));
 
           case 8:
-            _context.next = 10;
-            return _bcrypt["default"].gentSalt(10);
-
-          case 10:
-            salt = _context.sent;
-            _context.next = 13;
-            return _bcrypt["default"].hash(req.body.password, salt);
-
-          case 13:
-            hashedPassword = _context.sent;
             //create  a new  user
             user = new _User["default"]({
               name: req.body.name,
               email: req.body.email,
               password: req.body.password
             });
-            _context.prev = 15;
-            _context.next = 18;
+            _context.prev = 9;
+            _context.next = 12;
             return user.save();
 
-          case 18:
+          case 12:
             savedUser = _context.sent;
             res.send(savedUser);
-            _context.next = 25;
+            _context.next = 19;
             break;
 
-          case 22:
-            _context.prev = 22;
-            _context.t0 = _context["catch"](15);
+          case 16:
+            _context.prev = 16;
+            _context.t0 = _context["catch"](9);
             res.status(400).send(_context.t0);
 
-          case 25:
+          case 19:
           case "end":
             return _context.stop();
         }
       }
-    }, _callee, null, [[15, 22]]);
+    }, _callee, null, [[9, 16]]);
   }));
 
   return function register(_x, _x2) {
@@ -110,7 +100,7 @@ exports.register = register;
 
 var login = /*#__PURE__*/function () {
   var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(req, res) {
-    var _schema$validate2, error, user, validPass, token;
+    var _schema$validate2, error, user, token;
 
     return regeneratorRuntime.wrap(function _callee2$(_context2) {
       while (1) {
@@ -140,27 +130,15 @@ var login = /*#__PURE__*/function () {
             return _context2.abrupt("return", res.status(400).send('Email is not found'));
 
           case 8:
-            _context2.next = 10;
-            return _bcrypt["default"].compare.apply(req.body.password, user.password);
+            //check if password is correct
+            // const validPass =  await bcrypt.compare.apply(req.body.password, user.password);
+            // if(!validPass) return res.status(400).send('Invalid password')
+            token = _jsonwebtoken["default"].sign({
+              _id: user._id
+            }, process.env.TOKEN_SECRET);
+            res.header('authorization', token).send(token); //  res.send('Login successful!');
 
           case 10:
-            validPass = _context2.sent;
-
-            if (validPass) {
-              _context2.next = 13;
-              break;
-            }
-
-            return _context2.abrupt("return", res.status(400).send('Invalid password'));
-
-          case 13:
-            token = _jsonwebtoken["default"].sign({
-              _id: user.id
-            }, process.env.TOKEN_SECRET);
-            res.header('authorization', token).send(token);
-            res.send('Login successful!');
-
-          case 16:
           case "end":
             return _context2.stop();
         }

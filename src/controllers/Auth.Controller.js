@@ -22,11 +22,7 @@ export const register = async (req,res) => {
     if(emailExist) return res.status(400).send('Email already exist');
 
 
-    //hash the password
-    const salt = await bcrypt.gentSalt(10);
-    const hashedPassword = await bcrypt.hash(req.body.password,salt);
-
-
+    
     //create  a new  user
     const user = new User ({
         name: req.body.name,
@@ -52,17 +48,18 @@ export const login =  async (req,res) => {
     const user = await User.findOne(req.body);
     if(!user) return res.status(400).send('Email is not found');
 
+
+
+
     //check if password is correct
-     
-
-    const validPass =  await bcrypt.compare.apply(req.body.password, user.password);
-    if(!validPass) return res.status(400).send('Invalid password')
+    // const validPass =  await bcrypt.compare.apply(req.body.password, user.password);
+    // if(!validPass) return res.status(400).send('Invalid password')
 
 
-    const token = jwt.sign({_id: user.id},process.env.TOKEN_SECRET);
+    const token = jwt.sign({_id: user._id},process.env.TOKEN_SECRET);
     res.header('authorization',token).send(token);
 
-     res.send('Login successful!');
+    //  res.send('Login successful!');
 
 }
 
