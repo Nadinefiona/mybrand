@@ -1,2 +1,2 @@
 # Mybrand 
-[![CircleCI]([![CircleCI](https://circleci.com/gh/Nadinefiona/mybrand/tree/main.svg?style=svg)](https://circleci.com/gh/Nadinefiona/mybrand/tree/main))](https://circleci.com/gh/Nadinefiona/mybrand/tree/main)
+[![CircleCI](https://circleci.com/gh/Nadinefiona/mybrand/tree/main.svg?style=svg)](https://circleci.com/gh/Nadinefiona/mybrand/tree/main)

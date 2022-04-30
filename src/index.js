@@ -51,7 +51,7 @@ app.get("/user",() => {
 
 /**
  * @swagger
- * /api/users:
+ * /api/users/:
  *   post:
  *     tags: 
  *        - User

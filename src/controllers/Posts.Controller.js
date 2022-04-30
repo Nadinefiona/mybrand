@@ -17,7 +17,6 @@ export const getAllPost = async (req,res) =>  {
 
 
 export const AddPost = async (req,res) => {
-    console.log(req.file);
     const post = new Post({
         title: req.body.title,
         description: req.body.description
