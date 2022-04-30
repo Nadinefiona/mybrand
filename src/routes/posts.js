@@ -10,7 +10,7 @@ import{AddPost, DeleteOne, getAllPost, GetOnePost, UpdateOne} from '../controlle
 router.get('/', getAllPost);
 
 //SUBMIT POSTS
-router.post('/',upload.single('postImage') , AddPost);
+router.post('/', AddPost);
 
 //SPECIFIC POSTS
 router.get('/:postId' , GetOnePost);

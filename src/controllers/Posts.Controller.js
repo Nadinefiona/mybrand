@@ -4,7 +4,7 @@ import Joi from'@hapi/joi';
 import bcrypt from'bcryptjs/dist/bcrypt';
 const router = express.Router();
 import Post from '../model/Post';
-const upload = multer({dest: '/uploads/'});
+
 
 export const getAllPost = async (req,res) =>  {
     try {
