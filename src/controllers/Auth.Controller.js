@@ -79,7 +79,7 @@ export const allUsers = async (req,res) =>{
    const user = await User.find()
    res.send(user);
 }catch(err){
-    res.status.send(err);
+    res.status(200).send(err);
 }
 }
 
