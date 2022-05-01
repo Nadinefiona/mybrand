@@ -32,10 +32,15 @@ jobs:
   build-and-test:
     docker:
       - image: cimg/node:16.10
-      - image: circleci/mongo:4.2.0
+      - image: circleci/mongo:4.20
     steps:
       - checkout
+          path: ~/project
+      - node/install-npm 
       - node/install-packages:
+          app-dir: ~/project
+          cache-version: v1
+          cache-path: node_modules
           pkg-manager: npm
       - run:
           name: Run tests
