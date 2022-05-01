@@ -29,7 +29,7 @@ const swaggerOptions = {
 };
 
 const swaggerDos =  swaggerJsDoc(swaggerOptions);
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDos));
+app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDos));
 
 app.get("/user",() => {
    res.status.send("user results");
