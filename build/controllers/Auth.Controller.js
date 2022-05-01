@@ -210,7 +210,7 @@ var allUsers = /*#__PURE__*/function () {
           case 7:
             _context4.prev = 7;
             _context4.t0 = _context4["catch"](0);
-            res.status.send(_context4.t0);
+            res.status(200).send(_context4.t0);
 
           case 10:
           case "end":
