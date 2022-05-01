@@ -173,7 +173,7 @@ var UserbyId = /*#__PURE__*/function () {
           case 7:
             _context3.prev = 7;
             _context3.t0 = _context3["catch"](0);
-            res.status.send(_context3.t0);
+            res.status(200).send(_context3.t0);
 
           case 10:
           case "end":

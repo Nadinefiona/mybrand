@@ -69,9 +69,11 @@ export const UserbyId = async (req,res) => {
      const user = await User.findById(req.params.userId);
      res.send(user);
     } catch (err) {
-    res.status.send(err);  
+    res.status(200).send(err);  
     }
   }
+
+  
 export const allUsers = async (req,res) =>{
     try{
    const user = await User.find()

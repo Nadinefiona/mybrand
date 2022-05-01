@@ -37,7 +37,7 @@ app.get("/user",() => {
 
 /**
  * @swagger 
- * /api/users/:
+ * /api/users:
  *   get:
  *     tags: 
  *       - User
@@ -49,7 +49,6 @@ app.get("/user",() => {
  *          description: A successful response
  */
 
-
 /**
  * @swagger
  * /api/users:
@@ -57,7 +56,7 @@ app.get("/user",() => {
  *     tags: 
  *        - User
  *     name: users
- *     summary: add user
+ *     summary: Add user
  *     description: add new user
  *     produces:
  *      - application/json
@@ -80,8 +79,6 @@ app.get("/user",() => {
  *       '200':
  *          description: A successful response
  */
-
-
 
 /**
  * @swagger
@@ -146,6 +143,9 @@ app.get("/user",() => {
  */
 
 
+
+
+
 /**
  * @swagger
  * /api/posts:
@@ -153,7 +153,7 @@ app.get("/user",() => {
  *     tags: 
  *        - Post
  *     name: posts
- *     summary: add post
+ *     summary: Add post
  *     description: add post
  *     produces:
  *      - application/json
@@ -198,16 +198,16 @@ app.get("/user",() => {
  *     tags:
  *       - Post
  *     name: posts
+ *     summary: Get All  Posts
  *     description: get all posts
  *     responses:
  *       '200':
  *          description: A successful response
  */
 
-
 /**
  * @swagger
- * /api/posts{:postId}:
+ * /api/posts/{:postId}:
  *   get:
  *     tags:
  *         - Post
@@ -236,11 +236,9 @@ app.get("/user",() => {
  *                type: string
  */
 
-
-
  /**
  * @swagger
- * /api/posts{:postId}:
+ * /api/posts/{:postId}:
  *   delete:
  *     tags:
  *         - Post
@@ -271,7 +269,7 @@ app.get("/user",() => {
 
 /**
  * @swagger
- * /api/posts{:postId}:
+ * /api/posts/{:postId}:
  *   patch:
  *     tags:
  *         - Post
@@ -302,73 +300,189 @@ app.get("/user",() => {
 
 
 
-/**
- * @swagger
- * /api/comments{:Id}:
- *   delete:
- *     tags: 
- *       - Comment
- *     name: comment
- *     description: delete  a  comment
- *     responses:
- *       '200':
- *          description: A successful response
- */
+
 
 /**
  * @swagger
- * /api/posts/comments:
+ * /api/posts/{:postId}/comments:
  *   get:
- *     tags: 
+ *     tags:
  *       - Comment
- *     name: comment
- *     description: get all comments
+ *     name: posts
+ *     summary: Get All  Comments
+ *     description: get all Comments
+ *     responses:
+ *       '200':
+ *          description: A successful response
+ */
+/**
+ * @swagger
+ * /api/comments/{:postId}:
+ *   get:
+ *     tags:
+ *       - Comment
+ *     name: posts
+ *     summary: Get one  Comments
+ *     description: get one Comments
  *     responses:
  *       '200':
  *          description: A successful response
  */
 
-
-
 /**
  * @swagger
- * /api/posts/comments:
- *   put:
- *     tags: 
- *       - Comment
- *     name: comment
- *     description: add  a comment
- *     responses:
- *       '200':
- *          description: A successful response
- */
-
-
-
-
-/**
- * @swagger
- * /api/messages{:Id}:
+ * /api/posts/{:postId}/comments:
  *   post:
+ *     tags: 
+ *        - Comment
+ *     name: comments
+ *     summary: Add comment
+ *     description: add comment
+ *     produces:
+ *      - application/json
+ *     consumes:
+ *     - application/json
+ *     parameters:
+ *      - in: body
+ *        name: comment
+ *        required: true
+ *        schema: 
+ *          type: object
+ *          properties:
+ *            name: 
+ *               type: string
+ *            comment:
+ *               type: string                                                                                    
+ *     responses:
+ *       '200':
+ *          description: A successful response
+ */
+
+ /**
+ * @swagger
+ * /api/comments/{:postId}:
+ *   delete:
+ *     tags:
+ *         - Comment
+ *     name: comments
+ *     summary: Delete comment 
+ *     description: DELETE a comment 
+ *     produces:
+ *      - application/json
+ *     consumes:
+ *     - application/json
+ *     parameters:
+ *      - name: postId
+ *        in: path
+ *        required: true
+ *        schema: 
+ *          type: string
+ *     responses:
+ *       '200':
+ *          description: A successful response
+ *          schema:
+ *            type: object
+ *            properties:
+ *              id:
+ *                type: object
+ *              name:
+ *                type: string
+ */
+
+/**
+ * @swagger
+ * /api/messages:
+ *   post:
+ *     tags: 
+ *        - Message
+ *     name: messages
+ *     summary: Add message
+ *     description: add message
+ *     produces:
+ *      - application/json
+ *     consumes:
+ *     - application/json
+ *     parameters:
+ *      - in: body
+ *        name: message
+ *        required: true
+ *        schema: 
+ *          type: object
+ *          properties:
+ *            name: 
+ *               type: string
+ *            email:
+ *               type: string
+ *            message:
+ *               type: string                                                                                    
+ *     responses:
+ *       '200':
+ *          description: A successful response
+ */
+
+/**
+ * @swagger
+ * /api/messages:
+ *   get:
  *     tags: 
  *       - Message
  *     name: message
- *     description: post a message
+ *     summary: Get all message
+ *     description: get a message
  *     responses:
  *       '200':
  *          description: A successful response
  */
-
-
-
 /**
  * @swagger
- * /api/messages{:Id}:
+ * /api/messages:
  *   delete:
  *     tags: 
  *       - Message
  *     name: message
  *     description: delete  a message
+ *     responses:
+ *       '200':
+ *          description: A successful response
+ */
+
+/**
+ * @swagger
+ * /api/posts/{:postId}/likes:
+ *   put:
+ *     tags: 
+ *        - likes
+ *     name: likes
+ *     summary: Add like
+ *     description: add like
+ *     produces:
+ *      - application/json
+ *     consumes:
+ *     - application/json
+ *     parameters:
+ *      - in: body
+ *        name: comment
+ *        required: true
+ *        schema: 
+ *          type: object
+ *          properties:
+ *            name: 
+ *               type: string
+ *            comment:
+ *               type: string                                                                                    
+ *     responses:
+ *       '200':
+ *          description: A successful response
+ */
+/**
+ * @swagger
+ * /api/posts/{:postId}/likes:
+ *   get:
+ *     tags: 
+ *       - likes
+ *     name: likes
+ *     summary: Get all likes
+ *     description: get a like
  *     responses:
  *       '200':
  *          description: A successful response
