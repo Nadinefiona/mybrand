@@ -32,7 +32,7 @@ jobs:
   build-and-test:
     docker:
       - image: cimg/node:16.10
-      - image: circleci/mongo:4.20
+      - image: circleci/mongo:4.2.0
     steps:
       - checkout
       - node/install-packages:
@@ -46,6 +46,3 @@ workflows:
   sample:
     jobs:
       - build-and-test
-notify: 
-  webhooks: 
-    - url: https://coveralls.io/webhook?repo_token=${process.env.COVERALLS_REPO_TOKEN}
