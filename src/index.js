@@ -8,6 +8,7 @@ import swaggerUi from 'swagger-ui-express';
 app.use(express.json());
 require('dotenv').config({ path: 'ENV_FILENAME' });
 const PORT = process.env.PORT || 3000
+// import bodyParser from 'body-parser';
 
 
 
@@ -433,7 +434,8 @@ mongoose.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD
 //Middlewares
 app.use(express.json());
 
-
+// app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({extended:true}));
 //Route Middlewares
 app.use('/api/users', authRoute);
 app.use('/api/posts', postRoute);

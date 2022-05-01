@@ -36,7 +36,8 @@ require('dotenv').config({
   path: 'ENV_FILENAME'
 });
 
-var PORT = process.env.PORT || 3000;
+var PORT = process.env.PORT || 3000; // import bodyParser from 'body-parser';
+
 var swaggerOptions = {
   definition: {
     info: {
@@ -73,7 +74,7 @@ app.get("/user", function () {
 
 /**
  * @swagger
- * /api/user/register:
+ * /api/users/:
  *   post:
  *     tags: 
  *        - User
@@ -104,7 +105,7 @@ app.get("/user", function () {
 
 /**
  * @swagger
- * /api/user/register/{:userId}:
+ * /api/users/{:userId}:
  *   get:
  *     tags:
  *         - User
@@ -135,7 +136,7 @@ app.get("/user", function () {
 
 /**
  * @swagger
- * /api/user/login:
+ * /api/users/login:
  *   post:
  *     tags: 
  *        - User
@@ -428,9 +429,11 @@ _mongoose["default"].connect("mongodb+srv://".concat(process.env.DB_USER, ":").c
 }); //Middlewares
 
 
-app.use(_express["default"].json()); //Route Middlewares
+app.use(_express["default"].json()); // app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({extended:true}));
+//Route Middlewares
 
-app.use('/api/user', _auth["default"]);
+app.use('/api/users', _auth["default"]);
 app.use('/api/posts', _posts["default"]);
 app.use('/api/messages', _message["default"]);
 app.use('/api/comments', _comment["default"]);

@@ -1,5 +1,4 @@
 import express from 'express';
-import multer from 'multer';
 import Joi from'@hapi/joi';
 import bcrypt from'bcryptjs/dist/bcrypt';
 const router = express.Router();
@@ -19,7 +18,8 @@ export const getAllPost = async (req,res) =>  {
 export const AddPost = async (req,res) => {
     const post = new Post({
         title: req.body.title,
-        description: req.body.description
+        description: req.body.description,
+        image: req.file.path
     });
  
     try {

@@ -1,5 +1,6 @@
 import express from 'express';
 const app = express();
+// import bodyParser from 'body-parser';
 import YAML from 'yamljs';
 import dotenv from'dotenv';
 import mongoose from'mongoose';
@@ -316,7 +317,7 @@ app.get("/user",() => {
 
 /**
  * @swagger
- * /api/comments:
+ * /api/posts/comments:
  *   get:
  *     tags: 
  *       - Comment
@@ -331,7 +332,7 @@ app.get("/user",() => {
 
 /**
  * @swagger
- * /api/comments:
+ * /api/posts/comments:
  *   put:
  *     tags: 
  *       - Comment
@@ -343,44 +344,6 @@ app.get("/user",() => {
  */
 
 
-/**
- * @swagger
- * /api/posts{:postId}:
- *   put:
- *     tags: 
- *       - Articles
- *     name: articles
- *     description: update  a post
- *     responses:
- *       '200':
- *          description: A successful response
- */
-
-
-/**
- * @swagger
- * /api/posts{:id}:
- *   get:
- *     tags: 
- *       - Articles
- *     name: articles
- *     description: update  a post
- *     responses:
- *       '200':
- *          description: A successful response
- */
-/**
- * @swagger
- * /api/posts{:id}:
- *   delete:
- *     tags: 
- *       - Articles
- *     name: articles
- *     description: update  a post
- *     responses:
- *       '200':
- *          description: A successful response
- */
 
 
 /**
@@ -417,6 +380,7 @@ import messageRoute from './src/routes/message';
 import commentRoute from './src/routes/comment';
 import postRoute from './src/routes/posts';
 import res from 'express/lib/response';
+import bodyParser from 'body-parser';
 
 dotenv.config();
 
@@ -432,6 +396,9 @@ mongoose.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD
 
 //Middlewares
 app.use(express.json());
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended:true}));
 
 
 //Route Middlewares
