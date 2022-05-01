@@ -1,5 +1,7 @@
 {
   "dependencies": {
+    "@babel/node": "^7.16.8",
+    "@babel/plugin-transform-runtime": "^7.17.0",
     "@babel/cli": "^7.17.6",
     "@babel/core": "^7.17.9",
     "@babel/polyfill": "^7.12.1",
@@ -25,13 +27,12 @@
   "scripts": {
     "build": "babel src -d build",
     "start": "npm run build && node build/index.js",
+    "startdev": "babel-node src/index.js",
     "dev": "nodemon --exec npx babel-node src/index.js",
-    "test": "mocha --require @babel/polyfill --require @babel/register --recursive --exit ./test/ --timeout 400000",
-    "coverage": "nyc --reporter=lcov npm run test"
+    "test": "nyc --reporter=lcov --reporter=text --reporter=html mocha src/buildScripts/testSetup.js \"src/tests/**/*.test.js\" --timeout 40000  --exit",
+    "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
   "devDependencies": {
-    "@babel/node": "^7.16.8",
-    "@babel/plugin-transform-runtime": "^7.17.0",
     "chai": "^4.3.6",
     "chai-http": "^4.3.0",
     "coveralls": "^3.1.1",

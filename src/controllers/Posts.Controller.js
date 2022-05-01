@@ -67,3 +67,4 @@ export const DeleteOne = async (req,res) => {
 
 
 
+//   "test": "mocha --require @babel/polyfill --require @babel/register --recursive --exit ./test/ --timeout 400000",
