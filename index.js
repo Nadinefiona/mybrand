@@ -427,17 +427,7 @@ app.get("/user",() => {
  *     parameters:
  *      - in: path
  *        name: postId
- *        required: true
- *      - in: body
- *        name: comment
- *        required: true
- *        schema: 
- *          type: object
- *          properties:
- *            name: 
- *               type: string
- *            comment:
- *               type: string                                                                                    
+ *        required: true                                                                                 
  *     responses:
  *       '200':
  *          description: A successful response
