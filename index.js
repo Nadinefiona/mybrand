@@ -497,3 +497,5 @@ app.listen(3000, () => console.log('Server Up and running'));
 
 
 export default app;
+
+// "startdev": "babel-node src/index.js",
