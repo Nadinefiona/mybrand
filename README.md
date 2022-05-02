@@ -1,2 +1,2 @@
 # Mybrand 
-[![CircleCI](https://circleci.com/gh/Nadinefiona/mybrand/tree/main.svg?style=svg)](https://circleci.com/gh/Nadinefiona/mybrand/tree/main)  [![Coverage Status](https://coveralls.io/repos/github/Nadinefiona/mybrand/badge.svg)](https://coveralls.io/github/Nadinefiona/mybrand)
+[![CircleCI](https://circleci.com/gh/Nadinefiona/mybrand/tree/main.svg?style=svg)](https://circleci.com/gh/Nadinefiona/mybrand/tree/main)            [![Coverage Status](https://coveralls.io/repos/github/Nadinefiona/mybrand/badge.svg)](https://coveralls.io/github/Nadinefiona/mybrand)
