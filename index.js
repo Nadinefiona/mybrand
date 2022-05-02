@@ -404,7 +404,7 @@ app.get("/user",() => {
  *     tags: 
  *       - Message
  *     name: message
- *     summary: Delete message
+ *     summary: Delete a message
  *     description: delete  a message
  *     responses:
  *       '200':
