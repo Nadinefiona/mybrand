@@ -160,35 +160,20 @@ app.get("/user",() => {
  *     consumes:
  *     - application/json
  *     parameters:
- *      - in: body
- *        name: post
- *        required: true
- *        schema: 
- *          type: object
- *          properties:
- *            title: 
- *               type: string
- *            description:
- *               type: string                                                                                    
- *     responses:
- *       '200':
- *          description: A successful response
- */
-
-/**
- *    /upload:
- *      post:
- *    consumes:
- *      - multipart/formData
- *    parameters:
+ *      - in: path
+ *        name: title
+ *        required: true 
+ *      - in: path
+ *        name: description
+ *        required: true 
  *      - in: formData
  *        name: file
  *        type: file
  *        required: true
- *        description: file Upload  
- *    responses:
+ *        description: file Upload                                                                                  
+ *     responses:
  *       '200':
- *          description: A successful response  
+ *          description: A successful response
  */
 
 /**
@@ -227,13 +212,6 @@ app.get("/user",() => {
  *     responses:
  *       '200':
  *          description: A successful response
- *          schema:
- *            type: object
- *            properties:
- *              id:
- *                type: object
- *              name:
- *                type: string
  */
 
  /**
@@ -258,13 +236,6 @@ app.get("/user",() => {
  *     responses:
  *       '200':
  *          description: A successful response
- *          schema:
- *            type: object
- *            properties:
- *              id:
- *                type: object
- *              name:
- *                type: string
  */
 
 /**
@@ -289,13 +260,6 @@ app.get("/user",() => {
  *     responses:
  *       '200':
  *          description: A successful response
- *          schema:
- *            type: object
- *            properties:
- *              id:
- *                type: object
- *              name:
- *                type: string
  */
 
 
@@ -440,6 +404,7 @@ app.get("/user",() => {
  *     tags: 
  *       - Message
  *     name: message
+ *     summary: Delete message
  *     description: delete  a message
  *     responses:
  *       '200':
@@ -460,6 +425,9 @@ app.get("/user",() => {
  *     consumes:
  *     - application/json
  *     parameters:
+ *      - in: path
+ *        name: postId
+ *        required: true
  *      - in: body
  *        name: comment
  *        required: true
@@ -483,6 +451,10 @@ app.get("/user",() => {
  *     name: likes
  *     summary: Get all likes
  *     description: get a like
+ *     parameters:
+ *     - in: path
+ *       name: postId
+ *       required: true
  *     responses:
  *       '200':
  *          description: A successful response
