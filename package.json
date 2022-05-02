@@ -30,7 +30,7 @@
     "startdev": "babel-node src/index.js",
     "dev": "nodemon --exec npx babel-node src/index.js",
     "test": "nyc --reporter=html --reporter=text mocha --require @babel/polyfill --require @babel/register --recursive --exit ./test/ --timeout 400000",
-    "coverage": "nyc report --reporter=text-lcov | coveralls" 
+    "coverage": "nyc report --reporter=text-lcov | coveralls npm run test" 
   },
   "engines": {
     "node": "16.14.2",
