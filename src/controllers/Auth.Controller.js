@@ -18,8 +18,8 @@ export const register = async (req,res) => {
     if(error) return res.status(400).send(error.details[0].message);
 
     //checking if the  user  is always exist in  the database
-    const emailExist = await User.findOne(req.body);
-    if(emailExist) return res.status(400).send('Email already exist');
+    // const emailExist = await User.findOne(req.body);
+    // if(emailExist) return res.status(400).send('Email already exist');
 
 
     
@@ -29,12 +29,12 @@ export const register = async (req,res) => {
         email: req.body.email,
         password: req.body.password
     });
-    try{
-       const savedUser = await user.save()
-       res.send(savedUser);
-    }catch(err){
-        res.status(400).send(err);
-    }
+    // try{
+    //    const savedUser = await user.save()
+    //    res.send(savedUser);
+    // }catch(err){
+    //     res.status(400).send(err);
+    // }
 }
 
 
@@ -45,41 +45,38 @@ export const login =  async (req,res) => {
 
 
     //checking if  the email is  already exist
-    const user = await User.findOne(req.body);
-    if(!user) return res.status(400).send('Email is not found');
-
-
-
+    // const user = await User.findOne(req.body);
+    // if(!user) return res.status(400).send('Email is not found');
 
     //check if password is correct
     // const validPass =  await bcrypt.compare.apply(req.body.password, user.password);
     // if(!validPass) return res.status(400).send('Invalid password')
 
 
-    const token = jwt.sign({_id: user._id},process.env.TOKEN_SECRET);
-    res.header('authorization',token).send(token);
+    // const token = jwt.sign({_id: user._id},process.env.TOKEN_SECRET);
+    // res.header('authorization',token).send(token);
 
-    //  res.send('Login successful!');
+     res.send('Login successful!');
 
 }
 
 
 export const UserbyId = async (req,res) => {
-    try {
-     const user = await User.findById(req.params.userId);
-     res.send(user);
-    } catch (err) {
-    res.status(200).send(err);  
-    }
+    // try {
+    //  const user = await User.findById(req.params.userId);
+    //  res.send(user);
+    // } catch (err) {
+    // res.status(200).send(err);  
+    // }
   }
 
   
 export const allUsers = async (req,res) =>{
-    try{
-   const user = await User.find()
-   res.send(user);
-}catch(err){
-    res.status(200).send(err);
-}
+//     try{
+//    const user = await User.find()
+//    res.send(user);
+// }catch(err){
+//     res.status(200).send(err);
+// }
 }
 

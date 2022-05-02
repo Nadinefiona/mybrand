@@ -31,9 +31,9 @@ const swaggerOptions = {
 const swaggerDos =  swaggerJsDoc(swaggerOptions);
 app.use('', swaggerUi.serve, swaggerUi.setup(swaggerDos));
 
-app.get("/user",() => {
-   res.status.send("user results");
-});
+// app.get("/user",() => {
+//    res.status.send("user results");
+// });
 
 /**
  * @swagger 
@@ -275,19 +275,10 @@ app.get("/user",() => {
  *     name: posts
  *     summary: Get All  Comments
  *     description: get all Comments
- *     responses:
- *       '200':
- *          description: A successful response
- */
-/**
- * @swagger
- * /api/comments/{:postId}:
- *   get:
- *     tags:
- *       - Comment
- *     name: posts
- *     summary: Get one  Comments
- *     description: get one Comments
+ *     parameters:
+ *     - in: path
+ *       name: postId
+ *       required: true
  *     responses:
  *       '200':
  *          description: A successful response
@@ -295,7 +286,7 @@ app.get("/user",() => {
 
 /**
  * @swagger
- * /api/posts/{:postId}/comments:
+ * /api/comments/{:postId}:
  *   post:
  *     tags: 
  *        - Comment
@@ -307,6 +298,9 @@ app.get("/user",() => {
  *     consumes:
  *     - application/json
  *     parameters:
+ *      - in: path
+ *        name: postId
+ *        required: true
  *      - in: body
  *        name: comment
  *        required: true
@@ -324,7 +318,7 @@ app.get("/user",() => {
 
  /**
  * @swagger
- * /api/comments/{:postId}:
+ * /api/comments/{:commentId}:
  *   delete:
  *     tags:
  *         - Comment
@@ -344,13 +338,6 @@ app.get("/user",() => {
  *     responses:
  *       '200':
  *          description: A successful response
- *          schema:
- *            type: object
- *            properties:
- *              id:
- *                type: object
- *              name:
- *                type: string
  */
 
 /**
@@ -414,7 +401,7 @@ app.get("/user",() => {
 /**
  * @swagger
  * /api/posts/{:postId}/likes:
- *   put:
+ *   post:
  *     tags: 
  *        - likes
  *     name: likes
@@ -464,9 +451,8 @@ dotenv.config();
 
 //Connect to DB
 mongoose.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.6zhup.mongodb.net/database?retryWrites=true&w=majority`,
-
 () =>{
-  console.log('connected to db!')
+//   console.log('connected to db!')
 });
 
 

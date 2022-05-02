@@ -1,6 +1,9 @@
 import chai from"chai";
 import chaiHttp from "chai-http";
 import server from '../index';
+
+const expect = chai.expect;
+
 //Assertion Style
 chai.should();
 chai.use(chaiHttp);
@@ -288,15 +291,7 @@ describe('Tasks API',() => {
           });
       });
    });
-
-
-   
-
-
-
-
-
-     
+ 
     /**
       * Test POST route
       */
@@ -438,15 +433,6 @@ describe('Tasks API',() => {
 
 
 
-
-
-
-
-
-
-
-
-   
     /**
       * Test POST route
       */

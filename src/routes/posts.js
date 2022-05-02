@@ -13,7 +13,7 @@ let image = upload.single('image');
 router.get('/', getAllPost);
 
 //SUBMIT POSTS
-router.post('/' , image, AddPost);
+router.post('/' , image, authorization, AddPost);
 
 //GET ALL COMMENTS
 router.post('/comments' ,AddComment );
