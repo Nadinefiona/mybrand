@@ -273,7 +273,7 @@ app.use('', swaggerUi.serve, swaggerUi.setup(swaggerDos));
  *     tags:
  *       - Comment
  *     name: posts
- *     summary: Get All  Comments
+ *     summary: Get All  Comments on single post
  *     description: get all Comments
  *     parameters:
  *     - in: path
@@ -284,6 +284,23 @@ app.use('', swaggerUi.serve, swaggerUi.setup(swaggerDos));
  *          description: A successful response
  */
 
+/**
+ * @swagger
+ * /api/comments:
+ *   get:
+ *     tags:
+ *       - Comment
+ *     name: posts
+ *     summary: Get All  Comments
+ *     description: get all Comments
+ *     parameters:
+ *     - in: path
+ *       name: postId
+ *       required: true
+ *     responses:
+ *       '200':
+ *          description: A successful response
+ */
 /**
  * @swagger
  * /api/comments/{:postId}:
@@ -386,7 +403,21 @@ app.use('', swaggerUi.serve, swaggerUi.setup(swaggerDos));
  */
 /**
  * @swagger
- * /api/messages:
+ * /api/messages/{:Id}:
+ *   get:
+ *     tags: 
+ *       - Message
+ *     name: message
+ *     summary: GET one message
+ *     description: GET one message
+ *     responses:
+ *       '200':
+ *          description: A successful response
+ */
+
+/**
+ * @swagger
+ * /api/messages/{:Id}:
  *   delete:
  *     tags: 
  *       - Message

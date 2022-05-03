@@ -29,46 +29,66 @@ exports.schema = schema;
 
 var register = /*#__PURE__*/function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(req, res) {
-    var _schema$validate, error, user;
+    var validation, _schema$validate, error, emailExist, user, savedUser;
 
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
             //Lets validate   the data before  we  create a user
-            // const validation = Joi.validate(req.body, schema);
-            // res.send(validation);
+            validation = _joi["default"].validate(req.body, schema);
+            res.send(validation);
             _schema$validate = schema.validate(req.body), error = _schema$validate.error;
 
             if (!error) {
-              _context.next = 3;
+              _context.next = 5;
               break;
             }
 
             return _context.abrupt("return", res.status(400).send(error.details[0].message));
 
-          case 3:
-            //checking if the  user  is always exist in  the database
-            // const emailExist = await User.findOne(req.body);
-            // if(emailExist) return res.status(400).send('Email already exist');
+          case 5:
+            _context.next = 7;
+            return _User["default"].findOne(req.body);
+
+          case 7:
+            emailExist = _context.sent;
+
+            if (!emailExist) {
+              _context.next = 10;
+              break;
+            }
+
+            return _context.abrupt("return", res.status(400).send('Email already exist'));
+
+          case 10:
             //create  a new  user
             user = new _User["default"]({
               name: req.body.name,
               email: req.body.email,
               password: req.body.password
-            }); // try{
-            //    const savedUser = await user.save()
-            //    res.send(savedUser);
-            // }catch(err){
-            //     res.status(400).send(err);
-            // }
+            });
+            _context.prev = 11;
+            _context.next = 14;
+            return user.save();
 
-          case 4:
+          case 14:
+            savedUser = _context.sent;
+            res.send(savedUser);
+            _context.next = 21;
+            break;
+
+          case 18:
+            _context.prev = 18;
+            _context.t0 = _context["catch"](11);
+            res.status(400).send(_context.t0);
+
+          case 21:
           case "end":
             return _context.stop();
         }
       }
-    }, _callee);
+    }, _callee, null, [[11, 18]]);
   }));
 
   return function register(_x, _x2) {
@@ -80,7 +100,7 @@ exports.register = register;
 
 var login = /*#__PURE__*/function () {
   var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(req, res) {
-    var _schema$validate2, error;
+    var _schema$validate2, error, user, token;
 
     return regeneratorRuntime.wrap(function _callee2$(_context2) {
       while (1) {
@@ -96,17 +116,30 @@ var login = /*#__PURE__*/function () {
             return _context2.abrupt("return", res.status(400).send(error.details[0].message));
 
           case 3:
-            //checking if  the email is  already exist
-            // const user = await User.findOne(req.body);
-            // if(!user) return res.status(400).send('Email is not found');
+            _context2.next = 5;
+            return _User["default"].findOne(req.body);
+
+          case 5:
+            user = _context2.sent;
+
+            if (user) {
+              _context2.next = 8;
+              break;
+            }
+
+            return _context2.abrupt("return", res.status(400).send('Email is not found'));
+
+          case 8:
             //check if password is correct
             // const validPass =  await bcrypt.compare.apply(req.body.password, user.password);
             // if(!validPass) return res.status(400).send('Invalid password')
-            // const token = jwt.sign({_id: user._id},process.env.TOKEN_SECRET);
-            // res.header('authorization',token).send(token);
+            token = _jsonwebtoken["default"].sign({
+              _id: user._id
+            }, process.env.TOKEN_SECRET);
+            res.header('authorization', token).send(token);
             res.send('Login successful!');
 
-          case 4:
+          case 11:
           case "end":
             return _context2.stop();
         }
@@ -123,15 +156,32 @@ exports.login = login;
 
 var UserbyId = /*#__PURE__*/function () {
   var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(req, res) {
+    var user;
     return regeneratorRuntime.wrap(function _callee3$(_context3) {
       while (1) {
         switch (_context3.prev = _context3.next) {
           case 0:
+            _context3.prev = 0;
+            _context3.next = 3;
+            return _User["default"].findById(req.params.userId);
+
+          case 3:
+            user = _context3.sent;
+            res.send(user);
+            _context3.next = 10;
+            break;
+
+          case 7:
+            _context3.prev = 7;
+            _context3.t0 = _context3["catch"](0);
+            res.status(200).send(_context3.t0);
+
+          case 10:
           case "end":
             return _context3.stop();
         }
       }
-    }, _callee3);
+    }, _callee3, null, [[0, 7]]);
   }));
 
   return function UserbyId(_x5, _x6) {
@@ -143,15 +193,32 @@ exports.UserbyId = UserbyId;
 
 var allUsers = /*#__PURE__*/function () {
   var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(req, res) {
+    var user;
     return regeneratorRuntime.wrap(function _callee4$(_context4) {
       while (1) {
         switch (_context4.prev = _context4.next) {
           case 0:
+            _context4.prev = 0;
+            _context4.next = 3;
+            return _User["default"].find();
+
+          case 3:
+            user = _context4.sent;
+            res.send(user);
+            _context4.next = 10;
+            break;
+
+          case 7:
+            _context4.prev = 7;
+            _context4.t0 = _context4["catch"](0);
+            res.status(200).send(_context4.t0);
+
+          case 10:
           case "end":
             return _context4.stop();
         }
       }
-    }, _callee4);
+    }, _callee4, null, [[0, 7]]);
   }));
 
   return function allUsers(_x7, _x8) {
